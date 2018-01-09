@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="ehcache.xsd"
+         updateCheck="true"
+         monitoring="autodetect"
+         dynamicConfig="true">
+
+    <diskStore path="java.io.tmpdir"/>
+
+    <defaultCache
+            maxElementsInMemory="10000"
+            maxElementsOnDisk="10000000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </defaultCache>
+
+    <cache name="shiro-activeSessionCache"
+           maxBytesLocalDisk="1G"
+           maxBytesLocalHeap="100M"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+    <cache name="SysUser"
+           maxBytesLocalDisk="1G"
+           maxBytesLocalHeap="100M"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+    <!--
+    <cache  name="This is cache name."
+            maxBytesLocalDisk="5G"
+            maxBytesLocalHeap="50M"
+            eternal="false"
+            timeToIdleSeconds="600"
+            timeToLiveSeconds="3600">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+    -->
+
+</ehcache>
+
+        <!--
+        <diskStore>==========当内存缓存中对象数量超过maxElementsInMemory时,将缓存对象写到磁盘缓存中(需对象实现序列化接口)
+        <diskStore path="">==用来配置磁盘缓存使用的物理路径,Ehcache磁盘缓存使用的文件后缀名是*.data和*.index
+        name：指定cache的名称。
+        maxEntriesLocalDisk(maxElementsOnDisk)：指定允许在硬盘上存放元素的最大数量，0表示不限制。这个属性我们也可以在运行期通过CacheConfiguration来更改。
+        maxEntriesLocalHeap(maxElementsInMemory)：指定允许在内存中存放元素的最大数量，0表示不限制。这个属性也可以在运行期动态修改。
+        maxEntriesInCache：指定缓存中允许存放元素的最大数量。这个属性也可以在运行期动态修改。但是这个属性只对Terracotta分布式缓存有用。
+        maxBytesLocalDisk：指定当前缓存能够使用的硬盘的最大字节数，其值可以是数字加单位，单位可以是K、M或者G，不区分大小写，如：30G。当在CacheManager级别指定了该属性后，Cache级别也可以用百分比来表示，如：60%，表示最多使用CacheManager级别指定硬盘容量的60%。该属性也可以在运行期指定。当指定了该属性后会隐式的使当前Cache的overflowToDisk为true。
+        maxBytesLocalHeap：指定当前缓存能够使用的堆内存的最大字节数，其值的设置规则跟maxBytesLocalDisk是一样的。
+        maxBytesLocalOffHeap：指定当前Cache允许使用的非堆内存的最大字节数。当指定了该属性后，会使当前Cache的overflowToOffHeap的值变为true，如果我们需要关闭overflowToOffHeap，那么我们需要显示的指定overflowToOffHeap的值为false。
+        overflowToDisk：boolean类型，默认为false。当内存里面的缓存已经达到预设的上限时是否允许将按驱除策略驱除的元素保存在硬盘上，默认是LRU（最近最少使用）。当指定为false的时候表示缓存信息不会保存到磁盘上，只会保存在内存中。该属性现在已经废弃，推荐使用cache元素的子元素persistence来代替，如：<persistence strategy=”localTempSwap”/>。
+        diskSpoolBufferSizeMB：当往磁盘上写入缓存信息时缓冲区的大小，单位是MB，默认是30。
+        overflowToOffHeap：boolean类型，默认为false。表示是否允许Cache使用非堆内存进行存储，非堆内存是不受Java GC影响的。该属性只对企业版Ehcache有用。
+        copyOnRead：当指定该属性为true时，我们在从Cache中读数据时取到的是Cache中对应元素的一个copy副本，而不是对应的一个引用。默认为false。
+        copyOnWrite：当指定该属性为true时，我们在往Cache中写入数据时用的是原对象的一个copy副本，而不是对应的一个引用。默认为false。
+        timeToIdleSeconds：单位是秒，表示一个元素所允许闲置的最大时间，也就是说一个元素在不被请求的情况下允许在缓存中待的最大时间。默认是0，表示不限制。
+        timeToLiveSeconds：单位是秒，表示无论一个元素闲置与否，其允许在Cache中存在的最大时间。默认是0，表示不限制。
+        eternal：boolean类型，表示是否永恒，默认为false。如果设为true，将忽略timeToIdleSeconds和timeToLiveSeconds，Cache内的元素永远都不会过期，也就不会因为元素的过期而被清除了。
+        diskExpiryThreadIntervalSeconds ：单位是秒，表示多久检查元素是否过期的线程多久运行一次，默认是120秒。
+        clearOnFlush：boolean类型。表示在调用Cache的flush方法时是否要清空MemoryStore。默认为true。
+        memoryStoreEvictionPolicy：当内存里面的元素数量或大小达到指定的限制后将采用的驱除策略。默认是LRU（最近最少使用），可选值还有LFU（最不常使用）和FIFO（先进先出）。
+
+        name:指定当前CacheManager的名称。
+        dynamicConfig：boolean类型。表示是否可以动态的更新配置，默认为true。当设置为false的时候，我们在运行期通过CacheManager的Configuration来改变配置信息时将不会发生作用。使用代码进行配置时我们可以通过Configuration对象的dynamicConfig(boolean dynamicConfig)方法来指定该配置。
+        maxBytesLocalDisk：在CacheManager级别指定能够使用的本地磁盘的最大容量。当指定了该属性后隐式的使所有Cache的overflowToDisk变为true，如需关闭则需要在对应的Cache上设置overflowToDisk为false。
+        maxBytesLocalHeap：在CacheManager级别指定能够使用的堆内存的最大容量。
+        maxBytesLocalOffHeap：在CacheManager级别指定能够使用的非堆内存的最大容量。当指定了该属性后会隐式的使所有Cache的overflowToDisk变为true，如需关闭则需在对应的Cache上设置overflowToOffHeap为false。该属性只对企业版Ehcache有用。
+        defaultTransactionTimeoutInSeconds:
+        updateCheck：boolean类型，是否检查更新，默认为true。当设置为true时，CacheManager会定期的从网上去检查当前的Ehcache是否是最新的版本，如果不是，则会将比当前版本新的版本列出来。
+
+        diskPersistent：diskPersistent：设定在虚拟机重启时是否进行磁盘存储，默认为false；
+        statistics：是否收集统计信息。如果需要监控缓存使用情况，应该打开这个选项。 默认为关闭（统计会影响性能）。设置statistics="true"开启统计。
+        -->
+
+        <!--
+        persistence：表示Cache的持久化，它只有一个属性strategy，表示当前Cache对应的持久化策略。其可选值如下：
+        localTempSwap：当堆内存或者非堆内存里面的元素已经满了的时候，将其中的元素临时的存放在磁盘上，一旦重启就会消失。
+        localRestartable：该策略只对企业版Ehcache有用。它可以在重启的时候将堆内存或者非堆内存里面的元素持久化到硬盘上，重启之后再从硬盘上恢复元素到内存中。
+        none：不持久化缓存的元素
+        distributed：该策略不适用于单机，是用于分布式的。
+        -->
+
+        <!--
+        @Cacheable：如果使用@Cacheable注解，先检查对应的缓存是否存在，如果缓存存在，直接取缓存值返回，不再执行方法体内容；如果缓存不存在，则执行方法体内容，并且将返回的内容写入缓存
+    　　@CachePut：使用@CachePut注解和@Cacheable注解类似，只是不管对应缓存是否存在，都执行方法体，并且将返回的内容写入缓存
+    　　@CacheEvict：@CacheEvict注解表示对应缓存的删除
+        -->

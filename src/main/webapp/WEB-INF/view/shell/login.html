@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登录</title>
+    <!-- 告诉浏览器能够响应屏幕宽度 -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- bootstrap样式 -->
+    <link rel="stylesheet" href="../plugin/bootstrap/css/bootstrap.min.css">
+    <!-- 字体 -->
+    <link rel="stylesheet" href="../plugin/font-awesome/css/font-awesome.min.css">
+    <!-- 图标 -->
+    <link rel="stylesheet" href="../plugin/ionicons/css/ionicons.min.css">
+    <!-- 主题 -->
+    <link rel="stylesheet" href="../plugin/AdminLTE/css/AdminLTE.min.css">
+    <!-- AdminLTE皮肤。我们已经选择了皮肤蓝页。然而，你可以选择任何其他的皮肤。确保你将皮肤类应用于body标签，这样更改就生效了。 -->
+    <link rel="stylesheet" href="../plugin/AdminLTE/css/skins/skin-blue-light.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="../plugin/iCheck/square/blue.css">
+    <!-- 系统样式 -->
+    <link rel="stylesheet" href="../plugin/style.css">
+
+    <!-- 使IE9支持HTML5（不在本地打开，例：file://） -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- 谷歌字体 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition login-page" style="background-size: 100% 100%;">
+
+<div class="login-box">
+
+    <div class="login-logo">
+        <b>J-web</b>
+    </div>
+
+    <div class="login-box-body">
+        <p class="login-box-msg">请输入用户名和密码</p>
+        <form action="" method="post">
+            <div class="form-group has-feedback">
+                <input class="form-control" placeholder="用户名" name="username">
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" placeholder="密码" name="password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            #if($!error != "")
+            <div class="form-group has-feedback">
+                <p class="alert alert-danger" style="margin: 0 auto;text-align: center;padding-top: 6px;padding-bottom: 6px">
+                    $!error
+                </p>
+            </div>
+            #end
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="checkbox icheck">
+                        <label>
+                            <input type="checkbox" id="rememberMe" name="rememberMe"> 记住密码
+                        </label>
+                    </div>
+                </div>
+                <div class="col-xs-4" style="padding-top: 5px">
+                    <input type="submit" class="btn btn-primary btn-block btn-flat" value="登录"/>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<!-- jQuery 3 -->
+<script src="../plugin/jquery/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="../plugin/bootstrap/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../plugin/AdminLTE/js/AdminLTE.min.js"></script>
+<!-- iCheck -->
+<script src="../plugin/iCheck/icheck.min.js"></script>
+<script>
+    $('#rememberMe').iCheck({
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '20%' // 可选
+    });
+    $('body').css('background-image', 'url(\'../plugin/image/login/login' + (Math.ceil(Math.random() * 4)) + '.jpg\')');
+</script>
+<!--您还可以添加Slimscroll和FastClick插件。建议使用这两个插件来增强用户体验。-->
+</body>
+</html>

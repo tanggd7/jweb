@@ -1,0 +1,65 @@
+{
+  "options": [
+    {
+      "id": "name",
+      "name": "姓名",
+      "tag": "input",
+      "args": "text"
+    },
+    {
+      "id": "username",
+      "name": "用户名",
+      "tag": "input",
+      "args": "text"
+    },
+    {
+      "id": "available",
+      "name": "状态",
+      "tag": "select",
+      "args": [
+        {
+          "name": "有效",
+          "value": "0"
+        },
+        {
+          "name": "无效",
+          "value": "1"
+        }
+      ]
+    }
+  ],
+  "buttons": [
+    {
+      "name": "新增用户",
+      "event": "addUser",
+      "cls": "btn-primary",
+      "icon": "fa-plus"
+    }
+  ],
+  "columns": [
+    {
+      "data": "first_name",
+      "title": "名"
+    },
+    {
+      "data": "last_name",
+      "title": "姓"
+    },
+    {
+      "data": "position",
+      "title": "位置"
+    },
+    {
+      "data": "office",
+      "title": "工作单位"
+    },
+    {
+      "data": "start_date",
+      "title": "入职时间"
+    },
+    {
+      "data": "salary",
+      "title": "工资"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.core.dao.UserMapper">
+
+    <select id="getSysUserObj" resultType="net.core.po.Sys_user" parameterType="string">
+        SELECT id, organization_id, name, username, password, salt, locked, available
+        FROM sys_user
+        <where>
+            1 = 1
+            <if test="userName != '' and userName != null">
+                AND username = #{userName, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <select id="getSysRoleObj" resultType="net.core.po.Sys_role" parameterType="string">
+        SELECT c.id, c.role, c.name, c.available
+        FROM sys_user a, sys_user_role b, sys_role c
+        <where>
+            a.id = b.user_id AND b.role_id = c.id
+            <if test="userName != '' and userName != null">
+                AND a.username = #{userName, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <select id="getSysOrganizationObj" resultType="net.core.po.Sys_organization" parameterType="string">
+        SELECT b.id, b.organization, b.name, b.parent_id, b.parent_ids, b.available
+        FROM sys_user a, sys_organization b
+        <where>
+            a.organization_id = b.id
+            <if test="userName != '' and userName != null">
+                AND a.username = #{userName, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <select id="getSysResourceObj" resultType="net.core.po.Sys_resource" parameterType="string">
+        SELECT DISTINCT e.id, e.name, e.type, e.url, e.description, e.parent_id, e.parent_ids, e.permission, e.icon, e.available
+        FROM sys_user a, sys_user_role b, sys_role c, sys_role_resource d, sys_resource e
+        <where>
+            a.id = b.user_id AND b.role_id = c.id AND c.id = d.role_id AND d.resource_id = e.id
+            <if test="userName != '' and userName != null">
+                AND a.username = #{userName, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+</mapper>
