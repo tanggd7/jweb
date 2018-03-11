@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : VM
-Source Server Version : 50718
-Source Host           : 192.168.18.136:3306
-Source Database       : jweb
+Source Server         : qdm199527548_db
+Source Server Version : 50173
+Source Host           : qdm199527548.my3w.com:3306
+Source Database       : qdm199527548_db
 
 Target Server Type    : MYSQL
-Target Server Version : 50718
+Target Server Version : 50173
 File Encoding         : 65001
 
-Date: 2017-08-02 12:16:00
+Date: 2018-03-11 22:06:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -156,6 +156,7 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `organization_id` bigint(20) DEFAULT NULL COMMENT '组织ID',
+  `name` varchar(100) DEFAULT NULL COMMENT '姓名',
   `username` varchar(100) DEFAULT NULL COMMENT '用户登录名',
   `password` varchar(100) DEFAULT NULL COMMENT '用户登录密码',
   `salt` varchar(100) DEFAULT NULL COMMENT '盐',
@@ -169,7 +170,7 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', '1', 'admin', 'd3c59d25033dbf980d29554025c23a75', '8d78869f470951332959580424d4bf4f', '0', '0');
+INSERT INTO `sys_user` VALUES ('1', '1', 'admin', 'admin', 'd3c59d25033dbf980d29554025c23a75', '8d78869f470951332959580424d4bf4f', '0', '0');
 
 -- ----------------------------
 -- Table structure for sys_user_role
